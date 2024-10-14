@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "BookPage";
+}
+
+<h2>Book Page</h2>
+@model IEnumerable<Bookstore.Models.BookDetails>
+
+
+<a href="@Url.Action("InsertBook", "Books")">Add New Books</a>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">Book List</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        @*<th>Image</th>*@
+                        <th>Published Date</th>
+                        <th>Stock Quality</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center">No data available</td>
+                        </tr>
+ }
+                    else
+                    {
+                        foreach (var book in Model)
+                        {
+                            <tr>
+                                
+                                
+                                <td>@(!string.IsNullOrEmpty(book.Title) ? book.Title : "-")</td>
+                                <td>@(!string.IsNullOrEmpty(book.Author) ? book.Author : "-")</td>
+                                <td>@(!string.IsNullOrEmpty(book.Description) ? book.Description : "-")</td>
+                                <td>@book.Price.ToString("C")</td> <!-- Format price as currency -->
+                                <td>@book.Categoryname</td>
+                                @*<td>
+                                        <img src="@book.ImagePath" alt="Book Image" class="img-thumbnail" style="width:50px; height:50px;" />
+                                    </td>*@
+                                <td>@(book.PublishedDate.HasValue ? book.PublishedDate.Value.ToShortDateString() : "-")</td>
+
+
+                                <td>@book.StockQuality</td>
+                                <td>
+                                    <a class="btn btn-warning" href="@Url.Action("Editbook","Books",new {id=book.BookId })">Edit</a>
+                                    <button class="btn btn-danger" data-id="@book.BookId">Delete</button>
+                                </td>
+                            </tr>
+}
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
