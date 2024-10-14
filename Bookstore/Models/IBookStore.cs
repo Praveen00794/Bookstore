@@ -31,12 +31,28 @@ namespace Bookstore.Models
         HttpPostedFileBase bookupldimg { get; set; }
         DateTime? PublishedDate { get; set; }
         int StockQuality { get; set; }
-        
+        int countryid { get; set; }
+        int Stateid { get; set; }
+        IList<CountryDropdownlst> Countriesmstlst { get; set; }
+        IList<StateDropdownlst> Statemstlst { get; set; }
+
     }
     public interface ICategorymaster
     {
         int CategoryID { get; set; }
         string CategoryName { get; set; }
+    }
+
+    interface ICountryDropdownlst
+    {
+        int CountryID { get; set; }
+        string CountryName { get; set; }
+    }
+    interface IStateDropdownlst
+    {
+        int StateID { get; set; }
+        string State { get; set; }
+        int CountryID { get; set; }
     }
 
 

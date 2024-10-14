@@ -43,17 +43,34 @@ namespace Bookstore.Models
         public string ImagePath { get; set; }
 
         [DataType(DataType.Date)]
+        [Required(ErrorMessage ="Please select Date")]
         public DateTime? PublishedDate { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Stock quality must be non-negative.")]
         public int StockQuality { get; set; }
         public IList<Categorymaster> Dropdowncategories { get; set; }
-        public HttpPostedFileBase bookupldimg { get ; set ; }
+        public System.Web.HttpPostedFileBase bookupldimg { get ; set ; }
+        public int countryid { get; set; }
+        public int Stateid { get; set; }
+        public IList<CountryDropdownlst> Countriesmstlst { get; set; }
+        public IList<StateDropdownlst> Statemstlst { get; set; }
     }
 
     public class Categorymaster : ICategorymaster
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+    }
+
+    public class CountryDropdownlst : ICountryDropdownlst
+    {
+        public int CountryID { get; set; }
+        public string CountryName { get; set; }
+    }
+    public class StateDropdownlst : IStateDropdownlst
+    {
+        public int StateID { get; set; }
+        public string State { get; set; }
+        public int CountryID { get; set; }
     }
 }

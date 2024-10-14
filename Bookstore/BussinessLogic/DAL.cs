@@ -144,6 +144,50 @@ namespace Bookstore.BussinessLogic
             
         }
 
+        public IList<CountryDropdownlst> GetCountryDropdownlsts()
+        {
+            IList<CountryDropdownlst> lst = new List<CountryDropdownlst>();
+            DT = new DataTable();
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select CountryID,Country from country", con);
+                SqlDataAdapter DA = new SqlDataAdapter(cmd);
+                DA.Fill(DT);
+                lst = (from DataRow r in DT.Rows
+                       select new CountryDropdownlst()
+                       {
+                           CountryID = Convert.ToInt32(r["CountryID"]),
+                           CountryName = Convert.ToString(r["Country"])
+                       }).ToList();
+                return lst;
+
+
+            }
+        }
+        public IList<StateDropdownlst> GetStateDropdownlsts(int countryid)
+        {
+            IList<StateDropdownlst> lst = new List<StateDropdownlst>();
+            DT = new DataTable();
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select stateID,State from State where countyid=@countryId", con);
+                cmd.Parameters.AddWithValue("@countryId", countryid);
+                SqlDataAdapter DA = new SqlDataAdapter(cmd);
+                DA.Fill(DT);
+                lst = (from DataRow r in DT.Rows
+                       select new StateDropdownlst()
+                       {
+                           StateID = Convert.ToInt32(r["StateID"]),
+                           State = Convert.ToString(r["State"])
+
+                       }
+                     ).ToList();
+            }
+            return lst;
+        }
+
 
     }
 }

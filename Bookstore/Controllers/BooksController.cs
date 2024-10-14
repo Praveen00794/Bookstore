@@ -19,6 +19,7 @@ namespace Bookstore.Controllers
         {
             IList<BookDetails> objbookdetails = new List<BookDetails>();
             objbookdetails = ObjDAL.GetBookdetails();
+            
             return View(objbookdetails);
         }
 
@@ -30,6 +31,8 @@ namespace Bookstore.Controllers
             {
                 obj = (BookDetails)TempData["bookemp"];
             }
+            obj.Countriesmstlst = ObjDAL.GetCountryDropdownlsts();
+            obj.Statemstlst = ObjDAL.GetStateDropdownlsts(obj.countryid);
             obj.Dropdowncategories = ObjDAL.GetBookCategory();
             return View(obj);
         }
@@ -60,11 +63,12 @@ namespace Bookstore.Controllers
                 return RedirectToAction("BookPage");
                 
             }
-            else
-            {
+            
                 obj.Dropdowncategories = ObjDAL.GetBookCategory();
-                return View(model);
-            }   
+                obj.Countriesmstlst = ObjDAL.GetCountryDropdownlsts();
+                obj.Statemstlst = ObjDAL.GetStateDropdownlsts(obj.countryid);
+            return View(obj);
+            
             
         }
         public ActionResult Editbook(int id)
@@ -73,6 +77,11 @@ namespace Bookstore.Controllers
             obj = ObjDAL.Editbookload(id);
             TempData["bookemp"] = obj;
             return RedirectToAction("Insertbook");
+        }
+        public JsonResult PopulateStatecmb(int countryid)
+        {
+            IList<StateDropdownlst> lst = ObjDAL.GetStateDropdownlsts(countryid);
+            return Json(lst);
         }
 
 
