@@ -83,6 +83,11 @@ namespace Bookstore.Controllers
             IList<StateDropdownlst> lst = ObjDAL.GetStateDropdownlsts(countryid);
             return Json(lst);
         }
+        public ActionResult Deletebook(int id)
+        {
+            ObjDAL.DeleteEmp(id);
+            return RedirectToAction("BookPage");
+        }
 
 
     }

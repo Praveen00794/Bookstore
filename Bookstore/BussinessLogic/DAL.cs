@@ -114,11 +114,23 @@ namespace Bookstore.BussinessLogic
 
                             // CategoryID check
                             obj.CategoryId = DR["CategoryID"] != DBNull.Value ? (int)DR["CategoryID"] : 0;
+                            obj.ImagePath = DR["ImagePath"] != DBNull.Value ? DR["ImagePath"].ToString() : string.Empty;
                         }
                     }
                 }
             }
             return obj;
+        }
+        //delete
+        public void DeleteEmp(int id)
+        {
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("delete from books where Bookid=@id", con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
         }
         public void InsertUpdBook(BookDetails model)
         {

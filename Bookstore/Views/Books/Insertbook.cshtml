@@ -62,6 +62,7 @@
     <div class="form-group">
         @Html.Label("Book Photo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
+           
             @Html.TextBoxFor(m => m.bookupldimg, new { @class = "form-control", @type = "file", @placeholder = "Book Photo " })
             @Html.HiddenFor(m => m.ImagePath)
         </div>
@@ -70,8 +71,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PublishedDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PublishedDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PublishedDate, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.PublishedDate, new { htmlAttributes = new { @class = "form-control" ,@id="pubdate"} })
+            @Html.ValidationMessageFor(model => model.PublishedDate, "", new { @class = "text-danger", @id="pubdateval"})
         </div>
     </div>
 
@@ -88,6 +89,7 @@
         <div class="col-md-10">
             @Html.DropDownListFor(m => m.countryid,
            new SelectList(Model.Countriesmstlst, "CountryID", "CountryName"), "select-Country", new { @class = "form-control", @id = "concmb" })
+            @Html.ValidationMessageFor(m => m.countryid, "", new {@class="text-danger",@id="concmbval"})
         </div>
     </div>
     <div class="form-group">
@@ -95,6 +97,7 @@
         <div class="col-md-10">
             @Html.DropDownListFor(m => m.Stateid,
             new SelectList(Model.Statemstlst, "StateID", "State", Model.Stateid), "select-state", new { @class = "form-control", @id = "statecmb" })
+            @Html.ValidationMessageFor(m => m.countryid, "", new { @class = "text-danger", @id = "statecmbval" })
         </div>
     </div>
 
@@ -110,3 +113,6 @@
 <div>
     @Html.ActionLink( "Books", "BookPage")
 </div>
+
+
+
