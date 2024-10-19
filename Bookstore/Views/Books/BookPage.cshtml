@@ -8,7 +8,17 @@
 
 
 <a href="@Url.Action("InsertBook", "Books")">Add New Books</a>
+<style>
+    .img-hover {
+        transition: transform 0.3s ease; /* Smooth transition */
+    }
 
+        .img-hover:hover {
+            transform: scale(3); /* Scale up the image to 3 times its size */
+            z-index: 10; /* Bring the image in front if it overlaps with other elements */
+            position: relative; /* Ensure positioning works with z-index */
+        }
+</style>
 <body>
     <div class="container mt-4">
         <h2 class="mb-4">Book List</h2>
@@ -48,7 +58,7 @@
                                 <td>@book.Price.ToString("C")</td> <!-- Format price as currency -->
                                 <td>@book.Categoryname</td>
                                 <td>
-                                    <img src="@book.ImagePath" alt="Book Image" class="img-thumbnail" style="width:50px; height:50px;" />
+                                    <img src="@Url.Content(book.ImagePath)" alt="Book Image" class="img-thumbnail img-hover" style="width:50px; height:50px;" />
                                 </td>
                                 <td>@(book.PublishedDate.HasValue ? book.PublishedDate.Value.ToShortDateString() : "-")</td>
 

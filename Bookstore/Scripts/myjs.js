@@ -64,7 +64,7 @@
     });
 
     $('#confirm-btn').click(function () {
-        debugger
+        
         $.post('/Books/Deletebook', { id: employeeId }, function () {
             location.reload();
         });

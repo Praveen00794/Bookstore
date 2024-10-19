@@ -32,6 +32,7 @@ namespace Bookstore.BussinessLogic
         public  IList<BookDetails>GetBookdetails()
         {
             DT = new DataTable();
+            string filepath = "../booksuploadfiles/";
             IList<BookDetails> lst = new List<BookDetails>();
             using(SqlConnection con=new SqlConnection(constr))
             {
@@ -51,7 +52,9 @@ namespace Bookstore.BussinessLogic
                            StockQuality = Convert.ToInt32(r["StockQuantity"]),
                            Categoryname = Convert.ToString(r["CategoryName"]),
                            //PublishedDate = r["PublishedDate"] != DBNull.Value ? Convert.ToDateTime(r["PublishedDate"]) : (DateTime?)null
-                           PublishedDate = r["PublishedDate"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(r["PublishedDate"]) : null
+                           PublishedDate = r["PublishedDate"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(r["PublishedDate"]) : null,
+                           ImagePath=filepath+Convert.ToString(r["ImagePath"])
+                           
 
 
             }).ToList();
@@ -110,7 +113,9 @@ namespace Bookstore.BussinessLogic
 
 
                             // PublishedDate check
-                            obj.PublishedDate = DR["PublishedDate"] != DBNull.Value ? (DateTime)DR["PublishedDate"] : DateTime.MinValue;
+                           
+                            obj.PublishedDate = DR["PublishedDate"] != DBNull.Value ? (DateTime?)DR["PublishedDate"] : null;
+
 
                             // CategoryID check
                             obj.CategoryId = DR["CategoryID"] != DBNull.Value ? (int)DR["CategoryID"] : 0;

@@ -33,7 +33,7 @@ namespace Bookstore.Models
         public string Description { get; set; }
 
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; }  
 
         [Required]
         public int? CategoryId { get; set; }
@@ -44,6 +44,7 @@ namespace Bookstore.Models
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage ="Please select Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? PublishedDate { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Stock quality must be non-negative.")]
