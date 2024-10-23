@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Bookstore.Models;
 using Bookstore.BussinessLogic;
+using System.Web.Security;
 namespace Bookstore.Controllers
 {
     public class HomeController : Controller
@@ -28,11 +29,13 @@ namespace Bookstore.Controllers
 
             return View();
         }
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Loginpage()
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Loginpage(UserDetails model)
         {
@@ -41,6 +44,7 @@ namespace Bookstore.Controllers
             {
                 if(objDAL.Verifylogin(model.Username, model.Password))
                     {
+                    FormsAuthentication.SetAuthCookie(model.Username, false);
                     return RedirectToAction("BookPage", "Books");
                 }
                 else
@@ -51,6 +55,11 @@ namespace Bookstore.Controllers
             }
             return View(model);
            
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Loginpage","Home");
         }
     }
 }

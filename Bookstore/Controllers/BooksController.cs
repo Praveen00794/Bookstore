@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Bookstore.Models;
 using Bookstore.BussinessLogic;
 namespace Bookstore.Controllers
-{
+{[Authorize]
     public class BooksController : Controller
     {
          BookstoreDAL ObjDAL = new BookstoreDAL();
@@ -87,6 +87,12 @@ namespace Bookstore.Controllers
         {
             ObjDAL.DeleteEmp(id);
             return RedirectToAction("BookPage");
+        }
+
+
+        public ActionResult BookImport()
+        {
+            return View();
         }
 
 

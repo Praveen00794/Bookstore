@@ -6,8 +6,11 @@
 <h2>Book Page</h2>
 @model IEnumerable<Bookstore.Models.BookDetails>
 
+<div>
+    <a href="@Url.Action("InsertBook", "Books")">Add New Books</a><br />
 
-<a href="@Url.Action("InsertBook", "Books")">Add New Books</a>
+    <a href="@Url.Action("BookImport","Books")"> Bulk add</a>
+</div>
 <style>
     .img-hover {
         transition: transform 0.3s ease; /* Smooth transition */
@@ -54,7 +57,7 @@
 
                                 <td>@(!string.IsNullOrEmpty(book.Title) ? book.Title : "-")</td>
                                 <td>@(!string.IsNullOrEmpty(book.Author) ? book.Author : "-")</td>
-                                <td>@(!string.IsNullOrEmpty(book.Description) ? book.Description : "-")</td>
+                                <td style="white-space:normal;">@(!string.IsNullOrEmpty(book.Description) ? book.Description : "-")</td>
                                 <td>@book.Price.ToString("C")</td> <!-- Format price as currency -->
                                 <td>@book.Categoryname</td>
                                 <td>
@@ -75,6 +78,7 @@
             </table>
         </div>
     </div>
+
 </body>
 
 <!-- Delete Confirmation Modal -->

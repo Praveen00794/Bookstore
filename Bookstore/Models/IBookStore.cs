@@ -15,6 +15,7 @@ namespace Bookstore.Models
         string Fname { get; set; }
         string  Lname { get; set; }
         int phone { get; set; }
+
         
     }
     public interface IBookDetails
